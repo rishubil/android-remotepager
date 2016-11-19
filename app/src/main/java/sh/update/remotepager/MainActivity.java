@@ -16,17 +16,20 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatButton saveIp;
     private AppCompatButton pageUp;
     private AppCompatButton pageDown;
+    private AppCompatButton startBService;
+    private AppCompatButton stopBService;
     private AppCompatEditText ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService(new Intent("sh.update.remotepager.buttonservice"));
         result = (AppCompatTextView) findViewById(R.id.result);
         saveIp = (AppCompatButton) findViewById(R.id.save_ip);
         pageDown = (AppCompatButton) findViewById(R.id.page_down);
         pageUp = (AppCompatButton) findViewById(R.id.page_up);
+        startBService = (AppCompatButton) findViewById(R.id.start_service);
+        stopBService = (AppCompatButton) findViewById(R.id.stop_service);
         ip = (AppCompatEditText) findViewById(R.id.ip);
 
         ip.setText(Utils.getPrefString(getApplicationContext(), "ip"));
@@ -35,6 +38,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Utils.setPrefString(getApplicationContext(), "ip", ip.getText().toString().trim());
+            }
+        });
+
+        startBService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startService(new Intent("sh.update.remotepager.buttonservice"));
+            }
+        });
+
+        stopBService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopService(new Intent("sh.update.remotepager.buttonservice"));
             }
         });
 

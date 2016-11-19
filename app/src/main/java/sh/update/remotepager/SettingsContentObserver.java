@@ -4,7 +4,6 @@ package sh.update.remotepager;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Handler;
 import android.util.Log;
 
@@ -38,13 +37,13 @@ public class SettingsContentObserver extends ContentObserver {
         {
             Log.i("test", "down");
             Utils.sendKey(context, "KEYCODE_PAGE_DOWN");
-            previousVolume=currentVolume;
         }
         else if(delta<0)
         {
             Log.i("test", "up");
             Utils.sendKey(context, "KEYCODE_PAGE_UP");
-            previousVolume=currentVolume;
         }
+
+        audio.setStreamVolume(AudioManager.STREAM_MUSIC, previousVolume, AudioManager.FLAG_PLAY_SOUND);
     }
 }
